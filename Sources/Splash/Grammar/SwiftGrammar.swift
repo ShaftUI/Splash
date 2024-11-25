@@ -13,7 +13,9 @@ public struct SwiftGrammar: Grammar {
     public var syntaxRules: [SyntaxRule]
 
     public init() {
-        var delimiters = CharacterSet.alphanumerics.inverted
+        // Shaft patch: .inverted raises an exception on Windows
+        var delimiters = CharacterSet.alphanumerics
+        delimiters.invert()
         delimiters.remove("_")
         delimiters.remove("\"")
         delimiters.remove("#")
